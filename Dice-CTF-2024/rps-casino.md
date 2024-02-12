@@ -15,8 +15,7 @@ The most commonly used linear function of single bits is exclusive-or (XOR). Thu
 
 So the challenge used this implementation of LFSR
 
-
-    def LFSR():
+     def LFSR():
 
 	state = bytes_to_long(os.urandom(8))
  
