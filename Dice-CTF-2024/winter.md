@@ -31,3 +31,54 @@ For verification, since the receiver knows the private key, we first SHA 256 has
 
 ![image](https://github.com/Wixter07/CTF-s/assets/150792650/11915e3f-4e74-4a49-a9c6-16f76dbed230)
 
+## The challenge
+
+So the variables in the code are sk and vk. sk is the private key and vk is the public key.
+The key generation is as shown below
+
+    def keygen(cls):
+
+		sk = [os.urandom(32) for _ in range(32)]
+  
+		vk = [cls.hash(x, 256) for x in sk]
+  
+		return cls(sk, vk)
+
+sk takes in a random 32 byte strings and vk is obtained by SHA256 hashing sk 256 times.
+
+The Signature-Generation is as shown below
+
+    def sign(self, msg):
+
+    m = self.hash(msg, 1)
+   
+    sig = b''.join([self.hash(x, 256 - n) for x, n in zip(self.sk, m)])
+
+		return sig
+
+Refer to the Signature Generation in WOTS above to understand.
+
+The Signature-Verification is as shown below
+
+
+    def verify(self, msg, sig):
+
+		chunks = [sig[i:i+32] for i in range(0, len(sig), 32)]
+  
+		m = self.hash(msg, 1)
+  
+		vk = [self.hash(x, n) for x, n in zip(chunks, m)]
+  
+		return self.vk == vk
+  
+
+
+So here, if the vk we obtained after hashing the digest by N number of times is same as the vk initially being generated, we get the flag.
+
+I wasn't able to get what was going on in this challenge while the CTF was still up, but now I understood something but I may be wrong
+
+The the vk and sk generated stays the same for the second message also. So assuming that it doesn't change and that we already have the signature for the first messgae, we can actually calculate what the N values are and get the signature for the second value.
+
+That way, we may get the flag.
+
+
