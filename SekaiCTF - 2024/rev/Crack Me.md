@@ -78,6 +78,6 @@ Then I checked for the logs registered and found the flag
 ![image](https://github.com/user-attachments/assets/68da2ee5-0804-4437-b854-a7296a1bffe7)
 Flag - `SEKAI{15_React_N@71v3_R3v3rs3_H@RD???}`
 
-##Learnin
+## Learnings
 - Got to know about a new tool called HTTP Toolkit
 - Maybe learnt a bit of how android reverse challenges are though this one's not a good example
